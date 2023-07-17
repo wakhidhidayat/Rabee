@@ -1,0 +1,9 @@
+.DS_Store
+**/.DS_Store
+*.xcscheme
+*.ipa
+*.xcarchive
+xcuserdata/
+DerivedData/
+Rabee.xcodeproj
+Rabee.xcodeproj/project.pbxproj
