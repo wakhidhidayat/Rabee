@@ -7,6 +7,20 @@
 
 import Foundation
 
+enum ColorFilter: String {
+    case blackAndWhite = "black_and_white"
+    case black
+    case white
+    case yellow
+    case orange
+    case red
+    case purple
+    case magenta
+    case green
+    case teal
+    case blue
+}
+
 struct SearchResponse: Decodable {
     let totalPages: Int?
     let results: [SearchResult]

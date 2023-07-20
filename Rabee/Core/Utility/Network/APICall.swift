@@ -19,21 +19,24 @@ struct API {
         }
         return value
     }
-}
-
-protocol Endpoint {
-    var url: String { get }
+    
+    static func searchParameters(query: String, color: ColorFilter, page: Int) -> [String: Any] {
+        return [
+            "client_id": API.clientId,
+            "page": page,
+            "query": query,
+            "color": color.rawValue
+        ]
+    }
 }
 
 enum Endpoints {
-    enum Gets: Endpoint {
-        case search(query: String, page: Int)
-        
-        public var url: String {
-            switch self {
-            case .search(let query, let page):
-                return "\(API.baseUrl)search/photos?client_id=\(API.clientId)&page=\(page)&query=\(query)"
-            }
+    case search
+    
+    var url: String {
+        switch self {
+        case .search:
+            return API.baseUrl + "search/photos"
         }
     }
 }
