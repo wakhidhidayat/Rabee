@@ -19,6 +19,7 @@ settings:
     VERSION_NAME: $(VERSION_NAME)
     CURRENT_PROJECT_VERSION: $(BUILD_NUMBER)
     MARKETING_VERSION: $(VERSION_NAME)
+    CODE_SIGN_ENTITLEMENTS: Rabee/Supporting Files/Rabee.entitlements
 targets:
   Rabee:
     type: application
