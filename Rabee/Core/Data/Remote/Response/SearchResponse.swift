@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ColorFilter: String {
+enum ColorFilter: String, CaseIterable, Codable {
     case blackAndWhite = "black_and_white"
     case black
     case white

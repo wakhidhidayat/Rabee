@@ -53,6 +53,6 @@ class PrimaryButton: UIButton {
         titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)
         
         gradientLayer = CAGradientLayer.getLinearPeach(frame: self.bounds)
-        buttonStyle = .peach
+        buttonStyle = .white
     }
 }
