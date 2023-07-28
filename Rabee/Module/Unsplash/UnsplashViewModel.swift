@@ -14,8 +14,8 @@ class UnsplashViewModel {
         self.useCase = useCase
     }
     
-    func search(query: String, color: ColorFilter, page: Int = 1, completion: @escaping (_ data: SearchModel?, _ error: Error?) -> Void) {
-        useCase.search(query: query, color: color, page: page) { result in
+    func search(query: String, color: ColorFilter?, page: Int = 1, orientation: Orientation, completion: @escaping (_ data: SearchModel?, _ error: Error?) -> Void) {
+        useCase.search(query: query, color: color, page: page, orientation: orientation) { result in
             switch result {
             case .success(let data):
                 print(data)

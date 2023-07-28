@@ -21,6 +21,12 @@ enum ColorFilter: String, CaseIterable, Codable {
     case blue
 }
 
+enum Orientation: String {
+    case landscape
+    case portrait
+    case squarish
+}
+
 struct SearchResponse: Decodable {
     let totalPages: Int?
     let results: [SearchResult]

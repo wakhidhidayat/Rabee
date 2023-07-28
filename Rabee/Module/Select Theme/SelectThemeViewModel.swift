@@ -12,12 +12,11 @@ class SelectThemeViewModel: GridViewModel{
     var pageTitle = "Diskusikan dan pilih salah satu tema berikut!"
     var currentProgress = 1
     var progressText = "1/4"
-    var nextButtonTitle = "Lanjut ke Wedding Attire"
+    var nextButtonTitle = "Lanjut ke Pilih Warna"
     
     func nextButtonAction(sharePlayViewModel: SharePlayViewModel) {
         guard sharePlayViewModel.getSelectedTheme() != nil else {
             // TODO: Show alert
-            print("alert")
             return
         }
         

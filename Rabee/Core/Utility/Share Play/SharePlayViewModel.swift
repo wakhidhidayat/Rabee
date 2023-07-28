@@ -167,7 +167,7 @@ class SharePlayViewModel {
         var userSelected = try! userSelected.value()
         var themes = userSelected.themes
         for theme in themes {
-            if theme.usersId.count > 1 {
+            if theme.usersId.count > 0 {
                 return theme
             }
         }
@@ -179,7 +179,7 @@ class SharePlayViewModel {
         var userSelected = try! userSelected.value()
         var colors = userSelected.colors
         for color in colors {
-            if color.usersId.count > 1 {
+            if color.usersId.count > 0 {
                 return color
             }
         }
@@ -191,7 +191,7 @@ class SharePlayViewModel {
         var userSelected = try! userSelected.value()
         var attires = userSelected.attires
         for attire in attires {
-            if attire.usersId.count > 1 {
+            if attire.usersId.count > 0 {
                 return attire
             }
         }

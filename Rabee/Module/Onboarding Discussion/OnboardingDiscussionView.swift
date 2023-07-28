@@ -34,7 +34,7 @@ class OnboardingDiscussionView: UIView {
         let label = UILabel()
         label.textColor = .whiteColor
         label.textAlignment = .center
-        label.text = "Wedding Theme"
+        label.text = "Ayo berdiskusi membuat"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +53,7 @@ class OnboardingDiscussionView: UIView {
         let label = UILabel()
         label.textColor = .whiteColor
         label.textAlignment = .center
-        label.text = "Choose Yours First, Then Decide Together!"
+        label.text = "Visualisasikan mimpi wedding kamu dengan Rabee"
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +72,7 @@ class OnboardingDiscussionView: UIView {
         let label = UILabel()
         label.textColor = .whiteColor
         label.textAlignment = .center
-        label.text = "Connect with your love via SharePlay before discussing the wedding theme!"
+        label.text = "Kolaborasi dengan pasanganmu melalui SharePlay sebelum berdiskusi menentukan wedding impian kamu!"
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -88,7 +88,7 @@ class OnboardingDiscussionView: UIView {
     
     private let nextButton: PrimaryButton = {
         let button = PrimaryButton()
-        button.setTitle("Go Discuss with Partner", for: .normal)
+        button.setTitle("Mulai Diskusi", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -128,16 +128,16 @@ class OnboardingDiscussionView: UIView {
             titleLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 32),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            headingImage.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width - 40),
+            headingImage.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width - 80),
             headingImage.heightAnchor.constraint(equalToConstant: 57),
             headingImage.centerXAnchor.constraint(equalTo: centerXAnchor),
             headingImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             
             subtitleLabel.topAnchor.constraint(equalTo: headingImage.bottomAnchor, constant: 18),
-            subtitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            subtitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            subtitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
+            subtitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
             
-            onboardingImage.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 40),
+            onboardingImage.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20),
             onboardingImage.heightAnchor.constraint(equalToConstant: 150),
             onboardingImage.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 60),
             onboardingImage.centerXAnchor.constraint(equalTo: centerXAnchor),
