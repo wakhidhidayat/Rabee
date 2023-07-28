@@ -43,4 +43,12 @@ extension UIColor {
     static var linearAshBlueEnd: UIColor {
         UIColor(named: "LinearAshBlueEnd")!
     }
+    
+    static var shadowGray: UIColor {
+        UIColor(named: "ShadowGray")!
+    }
+    
+    static var separatorGray: UIColor {
+        UIColor(named: "SeparatorGray")!
+    }
 }
