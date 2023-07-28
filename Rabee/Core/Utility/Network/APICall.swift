@@ -20,21 +20,23 @@ struct API {
         return value
     }
     
-    static func searchParameters(query: String, color: ColorFilter?, page: Int) -> [String: Any] {
-        if color != nil {
+    static func searchParameters(query: String, color: ColorFilter?, orientation: Orientation, page: Int) -> [String: Any] {
+        if color == nil {
             return [
                 "client_id": API.clientId,
                 "page": page,
                 "query": query,
-                "color": color!.rawValue,
-                "per_page": 30
+                "per_page": 30,
+                "orientation": orientation.rawValue,
             ]
         } else {
             return [
                 "client_id": API.clientId,
                 "page": page,
                 "query": query,
-                "per_page": 50
+                "per_page": 30,
+                "color": color!.rawValue,
+                "orientation": orientation.rawValue,
             ]
         }
     }

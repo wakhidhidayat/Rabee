@@ -13,7 +13,7 @@ class ExploreDetailViewModel {
     var responseData: [SearchResultModel] = []
     
     func getPhotos(query: String, completion: @escaping (_ result: [SearchResultModel]?, _ error: Error?) -> Void) {
-        useCase.search(query: query, color: nil, page: 1) { result in
+        useCase.search(query: query, color: nil, page: 1, orientation: .portrait) { result in
             switch result {
             case .success(let data):
                 completion(data.results, nil)

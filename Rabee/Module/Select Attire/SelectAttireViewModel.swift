@@ -5,7 +5,7 @@
 //  Created by Wahid Hidayat on 27/07/23.
 //
 
-import Foundation
+import UIKit
 
 class SelectAttireViewModel: GridViewModel{
     var navigationTitle = "Wedding Attire"
@@ -19,10 +19,9 @@ class SelectAttireViewModel: GridViewModel{
               let color = sharePlayViewModel.getSelectedColor(),
               let attire = sharePlayViewModel.getSelectedAttire() else {
             // TODO: Show alert
-            print("alert")
             return
         }
         
-        // TODO: Navigate to moodboard page
+        UIApplication.topViewController()?.navigationController?.pushViewController(MoodboardViewController(selectedTheme: theme, selectedColor: color.color, selectedAttire: attire, sharePlayViewModel: sharePlayViewModel), animated: true)
     }
 }
