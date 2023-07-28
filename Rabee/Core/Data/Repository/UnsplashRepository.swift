@@ -8,7 +8,7 @@
 import Foundation
 
 protocol UnsplashRepository {
-    func search(query: String, color: ColorFilter, page: Int, completion: @escaping (Result<SearchModel, Error>) -> Void)
+    func search(query: String, color: ColorFilter?, page: Int, completion: @escaping (Result<SearchModel, Error>) -> Void)
 }
 
 class UnsplashRepositoryImpl: NSObject {
@@ -24,7 +24,7 @@ class UnsplashRepositoryImpl: NSObject {
 }
 
 extension UnsplashRepositoryImpl: UnsplashRepository {
-    func search(query: String, color: ColorFilter, page: Int, completion: @escaping (Result<SearchModel, Error>) -> Void) {
+    func search(query: String, color: ColorFilter?, page: Int, completion: @escaping (Result<SearchModel, Error>) -> Void) {
         remoteDataSource.search(query: query, color: color, page: page) { remoteResponse in
             switch remoteResponse {
             case .success(let searchResponse):

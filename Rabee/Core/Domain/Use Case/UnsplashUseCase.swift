@@ -8,7 +8,7 @@
 import Foundation
 
 protocol UnsplashUseCase {
-    func search(query: String, color: ColorFilter, page: Int, completion: @escaping (Result<SearchModel, Error>) -> Void)
+    func search(query: String, color: ColorFilter?, page: Int, completion: @escaping (Result<SearchModel, Error>) -> Void)
 }
 
 class UnsplashUseCaseImpl {
@@ -20,7 +20,7 @@ class UnsplashUseCaseImpl {
 }
 
 extension UnsplashUseCaseImpl: UnsplashUseCase {
-    func search(query: String, color: ColorFilter, page: Int, completion: @escaping (Result<SearchModel, Error>) -> Void) {
+    func search(query: String, color: ColorFilter?, page: Int, completion: @escaping (Result<SearchModel, Error>) -> Void) {
         repository.search(query: query, color: color, page: page) { result in
             completion(result)
         }

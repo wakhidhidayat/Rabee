@@ -32,7 +32,7 @@ class StaggeredCollectionViewLayout: UICollectionViewLayout {
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)
 
-            let height = 250.0 // Replace with your logic to get item height
+            let height = CGFloat.random(in: 100...350) // Replace with your logic to get item height
 
             let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
