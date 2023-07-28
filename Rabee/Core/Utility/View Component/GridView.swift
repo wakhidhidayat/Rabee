@@ -50,7 +50,9 @@ class GridView: UIView {
     }()
     
     let collectionView: UICollectionView = {
-        let layout = StaggeredCollectionViewLayout()
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = .zero
+        layout.itemSize = CGSize(width: (UIScreen.main.bounds.size.width / 2) - 30, height: 220)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .whiteColor

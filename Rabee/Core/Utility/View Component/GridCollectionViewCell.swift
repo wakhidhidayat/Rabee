@@ -129,7 +129,7 @@ class GridCollectionViewCell: UICollectionViewCell {
             infoButton.leadingAnchor.constraint(equalTo: themeImageView.leadingAnchor, constant: 8),
             
             nameLabel.centerYAnchor.constraint(equalTo: blurView.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: 8),
+            nameLabel.centerXAnchor.constraint(equalTo: blurView.centerXAnchor),
             
             singleAvatar.widthAnchor.constraint(equalToConstant: 38),
             singleAvatar.heightAnchor.constraint(equalToConstant: 38),
