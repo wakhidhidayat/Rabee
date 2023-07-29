@@ -57,7 +57,7 @@ class SelectColorViewController: UIViewController {
         sharePlayViewModel.userSelected
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] userSelected in
-                self?.selectColorView.reloadData()
+                self?.selectColorView.reloadData(for: userSelected)
             })
             .disposed(by: disposeBag)
     }

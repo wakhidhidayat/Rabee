@@ -37,6 +37,21 @@ class ColorButton: UIButton {
         }
     }
     
+    var userSelected: AvatarGender? = nil {
+        didSet {
+            switch userSelected {
+            case .man:
+                setImage(UIImage(named: "ManAvatar")?.resized(to: CGSize(width: 33, height: 33)), for: .normal)
+            case .woman:
+                setImage(UIImage(named: "WomanAvatar")?.resized(to: CGSize(width: 33, height: 33)), for: .normal)
+            case .couple:
+                setImage(UIImage(named: "CoupleAvatar")?.resized(to: CGSize(width: 60, height: 33)), for: .normal)
+            default:
+                setImage(nil, for: .normal)
+            }
+        }
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
@@ -53,5 +68,8 @@ class ColorButton: UIButton {
         
         clipsToBounds = true
         layer.cornerRadius = 16
+        
+        contentHorizontalAlignment = .center
+        contentVerticalAlignment = .center
     }
 }
