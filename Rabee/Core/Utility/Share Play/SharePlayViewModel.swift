@@ -163,7 +163,6 @@ class SharePlayViewModel {
     }
     
     func getSelectedTheme() -> Theme? {
-        guard let userId = UserDefaultsHelper.shared.getId() else { return nil }
         var userSelected = try! userSelected.value()
         var themes = userSelected.themes
         for theme in themes {
@@ -175,7 +174,6 @@ class SharePlayViewModel {
     }
     
     func getSelectedColor() -> ColorPalette? {
-        guard let userId = UserDefaultsHelper.shared.getId() else { return nil }
         var userSelected = try! userSelected.value()
         var colors = userSelected.colors
         for color in colors {
@@ -187,7 +185,6 @@ class SharePlayViewModel {
     }
     
     func getSelectedAttire() -> Attire? {
-        guard let userId = UserDefaultsHelper.shared.getId() else { return nil }
         var userSelected = try! userSelected.value()
         var attires = userSelected.attires
         for attire in attires {
@@ -196,5 +193,69 @@ class SharePlayViewModel {
             }
         }
         return nil
+    }
+    
+    func setThemeMoodboard(from theme: String) {
+        var userSelected = try! userSelected.value()
+        var newMoodboard = userSelected.moodboard
+        newMoodboard.themePotraitUrl = theme
+        
+        let newUserSelected = UserSelectedModel(themes: userSelected.themes, colors: userSelected.colors, attires: userSelected.attires, moodboard: newMoodboard)
+        self.userSelected.onNext(newUserSelected)
+        self.useCase.updateUserSelectedData(data: newUserSelected)
+        self.send(newUserSelected)
+    }
+    
+    func setAttirePotraitMoodboard(from attire: String) {
+        var userSelected = try! userSelected.value()
+        var newMoodboard = userSelected.moodboard
+        newMoodboard.attirePotraitUrl = attire
+        
+        let newUserSelected = UserSelectedModel(themes: userSelected.themes, colors: userSelected.colors, attires: userSelected.attires, moodboard: newMoodboard)
+        self.userSelected.onNext(newUserSelected)
+        self.useCase.updateUserSelectedData(data: newUserSelected)
+        self.send(newUserSelected)
+    }
+    
+    func setAttireLandscapeMoodboard(from attire: String) {
+        var userSelected = try! userSelected.value()
+        var newMoodboard = userSelected.moodboard
+        newMoodboard.attireLandscapeUrl = attire
+        
+        let newUserSelected = UserSelectedModel(themes: userSelected.themes, colors: userSelected.colors, attires: userSelected.attires, moodboard: newMoodboard)
+        self.userSelected.onNext(newUserSelected)
+        self.useCase.updateUserSelectedData(data: newUserSelected)
+        self.send(newUserSelected)
+    }
+    
+    func setDecorationLandscapeMoodboard(from decoration: String) {
+        var userSelected = try! userSelected.value()
+        var newMoodboard = userSelected.moodboard
+        newMoodboard.decorationLandscapeUrl = decoration
+        
+        let newUserSelected = UserSelectedModel(themes: userSelected.themes, colors: userSelected.colors, attires: userSelected.attires, moodboard: newMoodboard)
+        self.userSelected.onNext(newUserSelected)
+        self.useCase.updateUserSelectedData(data: newUserSelected)
+        self.send(newUserSelected)
+    }
+    
+    func setDecorationPotraitMoodboard(from decoration: String) {
+        var userSelected = try! userSelected.value()
+        var newMoodboard = userSelected.moodboard
+        newMoodboard.decorationPotraitUrl = decoration
+        
+        let newUserSelected = UserSelectedModel(themes: userSelected.themes, colors: userSelected.colors, attires: userSelected.attires, moodboard: newMoodboard)
+        self.userSelected.onNext(newUserSelected)
+        self.useCase.updateUserSelectedData(data: newUserSelected)
+        self.send(newUserSelected)
+    }
+    
+    func moodboardIsEmpty() -> Bool {
+        var userSelected = try! userSelected.value()
+        
+        if userSelected.moodboard.attireLandscapeUrl == nil && userSelected.moodboard.attirePotraitUrl == nil && userSelected.moodboard.decorationLandscapeUrl == nil && userSelected.moodboard.decorationPotraitUrl == nil && userSelected.moodboard.themePotraitUrl == nil {
+            return true
+        }
+        return false
     }
 }

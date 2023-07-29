@@ -18,6 +18,7 @@ struct UserSelectedModel: Codable {
     let themes: [Theme]
     let colors: [ColorPalette]
     let attires: [Attire]
+    var moodboard = Moodboard()
 }
 
 struct Theme: Codable, GridModel {
@@ -38,4 +39,12 @@ struct Attire: Codable, GridModel {
     let name: String
     let image: String
     var usersId: [String] = []
+}
+
+struct Moodboard: Codable {
+    var themePotraitUrl: String? = nil
+    var attirePotraitUrl: String? = nil
+    var attireLandscapeUrl: String? = nil
+    var decorationLandscapeUrl: String? = nil
+    var decorationPotraitUrl: String? = nil
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class MoodboardViewController: UIViewController {
     private let moodboardView: MoodboardView = {
@@ -13,6 +14,8 @@ class MoodboardViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private let disposeBag = DisposeBag()
     
     private let selectedTheme: Theme
     private let selectedColor: ColorFilter
@@ -37,6 +40,7 @@ class MoodboardViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupNavbar()
+        setupBinding()
     }
     
     private func setupView() {
@@ -48,6 +52,59 @@ class MoodboardViewController: UIViewController {
             moodboardView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
+        guard shareplayViewModel.moodboardIsEmpty() else {
+            fillData()
+            return
+        }
+        generateMoodboard()
+    }
+    
+    private func setupNavbar() {
+        navigationItem.title = "Moodboard"
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Back"), style: .plain, target: self, action: #selector(backAction))
+        navigationItem.leftBarButtonItem?.tintColor = .peach
+        let shareButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareAction))
+        let regenerateButton = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain, target: self, action: #selector(regenerateAction))
+        shareButton.tintColor = .peach
+        regenerateButton.tintColor = .peach
+        navigationItem.setRightBarButtonItems([shareButton, regenerateButton], animated: true)
+    }
+    
+    @objc private func backAction() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func shareAction() {
+        // TODO: Share
+    }
+    
+    @objc private func regenerateAction() {
+        generateMoodboard()
+    }
+    
+    private func fillData() {
+        var userSelected = try? shareplayViewModel.userSelected.value()
+        moodboardView.attireLandscapeUrl = userSelected?.moodboard.attireLandscapeUrl ?? ""
+        moodboardView.attirePotraitUrl = userSelected?.moodboard.attirePotraitUrl ?? ""
+        moodboardView.decorationPotraitUrl = userSelected?.moodboard.decorationPotraitUrl ?? ""
+        moodboardView.decorationLandscapeUrl = userSelected?.moodboard.decorationLandscapeUrl ?? ""
+        moodboardView.themePotraitUrl = userSelected?.moodboard.themePotraitUrl ?? ""
+    }
+    
+    private func setupBinding() {
+        shareplayViewModel.userSelected
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] userSelected in
+                self?.fillData()
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Generate Moodboard
+extension MoodboardViewController {
+    func generateMoodboard() {
         unsplashViewModel.search(query: "\(selectedTheme.name) wedding", color: selectedColor, orientation: .portrait) { [weak self] data, error in
             guard error == nil else {
                 return
@@ -55,6 +112,7 @@ class MoodboardViewController: UIViewController {
             
             let randomImageIndex = Int.random(in: 0..<(data?.results.count ?? 0) - 1)
             guard let imageUrl = data?.results[randomImageIndex].regularImageUrl else { return }
+            self?.shareplayViewModel.setThemeMoodboard(from: imageUrl)
             self?.moodboardView.themePotraitUrl = imageUrl
         }
         
@@ -65,6 +123,7 @@ class MoodboardViewController: UIViewController {
             
             let randomImageIndex = Int.random(in: 0..<(data?.results.count ?? 0) - 1)
             guard let imageUrl = data?.results[randomImageIndex].regularImageUrl else { return }
+            self?.shareplayViewModel.setDecorationLandscapeMoodboard(from: imageUrl)
             self?.moodboardView.decorationLandscapeUrl = imageUrl
         }
         
@@ -75,6 +134,7 @@ class MoodboardViewController: UIViewController {
             
             let randomImageIndex = Int.random(in: 0..<(data?.results.count ?? 0) - 1)
             guard let imageUrl = data?.results[randomImageIndex].regularImageUrl else { return }
+            self?.shareplayViewModel.setDecorationPotraitMoodboard(from: imageUrl)
             self?.moodboardView.decorationPotraitUrl = imageUrl
         }
 
@@ -85,6 +145,7 @@ class MoodboardViewController: UIViewController {
             
             let randomImageIndex = Int.random(in: 0..<(data?.results.count ?? 0) - 1)
             guard let imageUrl = data?.results[randomImageIndex].regularImageUrl else { return }
+            self?.shareplayViewModel.setAttireLandscapeMoodboard(from: imageUrl)
             self?.moodboardView.attireLandscapeUrl = imageUrl
         }
         
@@ -95,24 +156,9 @@ class MoodboardViewController: UIViewController {
             
             let randomImageIndex = Int.random(in: 0..<(data?.results.count ?? 0) - 1)
             guard let imageUrl = data?.results[randomImageIndex].regularImageUrl else { return }
+            self?.shareplayViewModel.setAttirePotraitMoodboard(from: imageUrl)
             self?.moodboardView.attirePotraitUrl = imageUrl
         }
-    }
-    
-    private func setupNavbar() {
-        navigationItem.title = "Moodboard"
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Back"), style: .plain, target: self, action: #selector(backAction))
-        navigationItem.leftBarButtonItem?.tintColor = .peach
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareAction))
-        navigationItem.rightBarButtonItem?.tintColor = .peach
-    }
-    
-    @objc private func backAction() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc private func shareAction() {
-        // TODO: Share
+
     }
 }
