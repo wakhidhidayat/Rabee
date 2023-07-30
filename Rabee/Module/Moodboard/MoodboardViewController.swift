@@ -76,7 +76,13 @@ class MoodboardViewController: UIViewController {
     }
     
     @objc private func shareAction() {
-        // TODO: Share
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy hh:mma"
+        let nowFormatted = dateFormatter.string(from: .now)
+        if let fileUrl = self.moodboardView.exportableView.saveImage(filename: "rabee-moodboard-\(nowFormatted).jpg") {
+            let activityController = UIActivityViewController(activityItems: [fileUrl], applicationActivities: nil)
+            self.present(activityController, animated: true, completion: nil)
+        }
     }
     
     @objc private func regenerateAction() {
@@ -84,7 +90,7 @@ class MoodboardViewController: UIViewController {
     }
     
     private func fillData() {
-        var userSelected = try? shareplayViewModel.userSelected.value()
+        let userSelected = try? shareplayViewModel.userSelected.value()
         moodboardView.attireLandscapeUrl = userSelected?.moodboard.attireLandscapeUrl ?? ""
         moodboardView.attirePotraitUrl = userSelected?.moodboard.attirePotraitUrl ?? ""
         moodboardView.decorationPotraitUrl = userSelected?.moodboard.decorationPotraitUrl ?? ""
