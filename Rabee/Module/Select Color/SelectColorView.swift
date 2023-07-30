@@ -175,7 +175,7 @@ class SelectColorView: UIView {
             colorView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             colorView.bottomAnchor.constraint(equalTo: nextButton.topAnchor, constant: -16),
             
-            vStack.centerYAnchor.constraint(equalTo: vstackTopBottomColor.centerYAnchor),
+            vStack.centerYAnchor.constraint(equalTo: vstackTopBottomColor.centerYAnchor, constant: 24),
             vStack.leadingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: 32),
             vStack.trailingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: -32),
             
