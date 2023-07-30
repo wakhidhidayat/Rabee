@@ -1,11 +1,17 @@
 name: Rabee
 packages:
-  SDWebImageSwiftUI:
-    url: https://github.com/SDWebImage/SDWebImageSwiftUI
-    from: 2.2.3
+  SDWebImage:
+    url: https://github.com/SDWebImage/SDWebImage
+    from: 5.1.0
   Alamofire:
     url: https://github.com/Alamofire/Alamofire
     from: 5.6.4
+  RxSwift:
+    url: https://github.com/ReactiveX/RxSwift
+    from: 6.6.0
+  RxCocoa:
+    url: https://github.com/ReactiveX/RxSwift
+    from: 6.6.0
 configs:
   Rabee-DEV: debug
   Rabee: release
@@ -19,6 +25,7 @@ settings:
     VERSION_NAME: $(VERSION_NAME)
     CURRENT_PROJECT_VERSION: $(BUILD_NUMBER)
     MARKETING_VERSION: $(VERSION_NAME)
+    CODE_SIGN_ENTITLEMENTS: Rabee/Supporting Files/Rabee.entitlements
 targets:
   Rabee:
     type: application
@@ -44,8 +51,10 @@ targets:
           PRODUCT_NAME: Rabee
           DEVELOPMENT_TEAM: 94XJVN3C32
     dependencies:
-      - package: SDWebImageSwiftUI
+      - package: SDWebImage
       - package: Alamofire
+      - package: RxSwift
+      - package: RxCocoa
 schemes:
   Rabee:
     build:

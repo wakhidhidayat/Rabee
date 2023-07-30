@@ -14,8 +14,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        if UserDefaultsHelper.shared.getId() == nil {
+            UserDefaultsHelper.shared.saveId(UUID().uuidString)
+        }
+        
         let window = UIWindow(windowScene: windowScene)
-        let navigationController = UINavigationController(rootViewController: ViewController())
+        let appearance = UINavigationBarAppearance()
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.textTitle]
+        let navigationController = UINavigationController(rootViewController: OnboardingController())
+        navigationController.navigationBar.standardAppearance = appearance
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         self.window = window
