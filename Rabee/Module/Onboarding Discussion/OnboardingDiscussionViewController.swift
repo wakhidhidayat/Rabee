@@ -31,6 +31,10 @@ class OnboardingDiscussionViewController: UIViewController {
         ])
         
         onboardingDiscussionView.delegate = self
+        
+        onboardingDiscussionView.didBackBtnTapped = {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

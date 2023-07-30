@@ -23,48 +23,49 @@ class GuidelineCell: UITableViewCell {
             case .notFinished:
                 print("state")
                 circleIndicator.image = UIImage(named: "ProgressCircleNotDone")
-//                guidelineCardBg.isHidden = true
                 stepLabel.isHidden = false
                 spacerHStack.isHidden = true
                 guidelineTitle.isHidden = false
                 insideStackView.isHidden = true
                 separator.isHidden = false
+                
+                contentView.backgroundColor = .whiteColor
             case .finished:
                 print("state")
                 circleIndicator.image = UIImage(named: "ProgressCircleDone")
-//                guidelineCardBg.isHidden = true
                 stepLabel.isHidden = true
                 spacerHStack.isHidden = false
                 guidelineTitle.isHidden = false
                 insideStackView.isHidden = true
                 separator.isHidden = true
+                
+                contentView.backgroundColor = .whiteColor
             case .current:
                 print("state")
                 circleIndicator.image = UIImage(named: "ProgressCircleCurrent")
-//                guidelineCardBg.isHidden = false
                 stepLabel.isHidden = false
                 spacerHStack.isHidden = true
                 guidelineTitle.isHidden = true
                 insideStackView.isHidden = false
                 separator.isHidden = true
+                
+                //Handling bg
+//                contentView.backgroundColor = .whiteColor
+//                contentView.layer.backgroundColor = UIColor.whiteColor.cgColor
+                contentView.layer.insertSublayer(CAGradientLayer.getLinearPeach(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width - 40, height: 170)), at: 0)
+                contentView.layer.cornerRadius = 20
+                contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+                contentView.clipsToBounds = true
+                
             }
             
         }
     }
     var circleIndicatorTopConstraint: NSLayoutConstraint?
     var circleIndicatorBottomConstraint: NSLayoutConstraint?
-//    var guidelineCardBgTopConstraint: NSLayoutConstraint?
     var currentStep: Int?
     
     // MARK: - UI Components
-    
-//    private let guidelineCardBg: UIImageView = {
-//        let iv = UIImageView()
-////        iv.contentMode = .scaleAspectFit
-//        iv.image = UIImage(named: "GuidelineCardBg")
-//        iv.translatesAutoresizingMaskIntoConstraints = false
-//        return iv
-//    }()
     
     var dashedLineLayer: CAShapeLayer! = {
         let line = CAShapeLayer()
@@ -118,7 +119,7 @@ class GuidelineCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.distribution = .fill
-        stackView.backgroundColor = .white.withAlphaComponent(0.2)
+        stackView.backgroundColor = .whiteColor.withAlphaComponent(0.2)
         stackView.layer.cornerRadius = 12
         stackView.clipsToBounds = true
         stackView.layer.borderWidth = 2
@@ -200,7 +201,7 @@ class GuidelineCell: UITableViewCell {
     
     // MARK: - UI Set Up
     private func setupUI() {
-//        contentView.addSubview(guidelineCardBg)
+        
         contentView.layer.addSublayer(dashedLineLayer)
         contentView.addSubview(circleIndicator)
         
@@ -221,16 +222,11 @@ class GuidelineCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             
-//            guidelineCardBg.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-//            guidelineCardBg.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-//            guidelineCardBg.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
             circleIndicator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 18),
             circleIndicator.widthAnchor.constraint(equalToConstant: 32),
             circleIndicator.heightAnchor.constraint(equalToConstant: 32),
             
             guidelineStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-//            guidelineStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             guidelineStackView.leadingAnchor.constraint(equalTo: circleIndicator.trailingAnchor, constant: 12),
             guidelineStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
@@ -269,26 +265,17 @@ class GuidelineCell: UITableViewCell {
             circleIndicatorTopConstraint = circleIndicator.topAnchor.constraint(equalTo: contentView.topAnchor)
             circleIndicatorTopConstraint?.isActive = true
             
-            // Give top constraint card bg, equal to top contentView for first row. (so it can fit the top circle indicator top constraint
-//            guidelineCardBgTopConstraint = guidelineCardBg.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
-//            guidelineCardBgTopConstraint?.isActive = true
         } else if index == 3 {
             // for last row, circle indicator place at bottom of cell
             circleIndicatorBottomConstraint = circleIndicator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 2)
             circleIndicatorTopConstraint?.isActive = false
             circleIndicatorBottomConstraint?.isActive = true
             
-            // for last row, give 12 margin to guidellineCardBg top anchor
-//            guidelineCardBgTopConstraint = guidelineCardBg.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15)
-//            guidelineCardBgTopConstraint?.isActive = true
         } else {
             // Beside first and last row, give 15 margin to circleIndicator top anchor
             circleIndicatorTopConstraint = circleIndicator.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15)
             circleIndicatorTopConstraint?.isActive = true
             
-            // Beside first and last row, give 12 margin to guidelineCardBg top anchor
-//            guidelineCardBgTopConstraint = guidelineCardBg.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15)
-//            guidelineCardBgTopConstraint?.isActive = true
         }
     }
 

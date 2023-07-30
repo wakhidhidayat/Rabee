@@ -68,7 +68,7 @@ class OnboardingView: UIView {
         return greetSV
     }()
     
-    private let headerView: OnboardingHeaderView = {
+    let headerView: OnboardingHeaderView = {
         let header = OnboardingHeaderView()
         header.translatesAutoresizingMaskIntoConstraints = false
         return header
@@ -207,7 +207,7 @@ extension OnboardingView: UITableViewDataSource {
         if tableView == exploreTableView {
             // Handle exploreTableView cell clicked
             exploreTableView.deselectRow(at: indexPath, animated: true)
-            delegate?.didSelectRow(type: .explore, query: conceptsData[indexPath.row].title)
+            delegate?.didSelectRow(type: .explore, query: conceptsData[indexPath.row].query)
         }
         
     }
@@ -222,7 +222,7 @@ extension OnboardingView: UITableViewDelegate {
         
         let swipingDown = y <= 0
         let shouldSnap = y > 30
-        let headerHeight = headerView.headerStackView.frame.height + 10
+        let headerHeight = headerView.headerStackView.frame.height + 10 - 95 // 95 is height of createMoodBoardSmall
         
 //        // Give Disappeare animation
 //        UIView.animate(withDuration: 0.3) {
@@ -232,7 +232,14 @@ extension OnboardingView: UITableViewDelegate {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [], animations: {
             self.headerViewTopConstraint?.constant = shouldSnap ? -headerHeight : 18
             self.layoutIfNeeded()
+            
+           
         })
+        if shouldSnap {
+            self.headerView.createMoodboardButtonSmall.isHidden = false
+        } else {
+            self.headerView.createMoodboardButtonSmall.isHidden = true
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

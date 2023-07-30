@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [.foregroundColor: UIColor.textTitle]
-        let navigationController = UINavigationController(rootViewController: OnboardingDiscussionViewController())
+        let navigationController = UINavigationController(rootViewController: OnboardingController())
         navigationController.navigationBar.standardAppearance = appearance
         window.rootViewController = navigationController
         window.makeKeyAndVisible()

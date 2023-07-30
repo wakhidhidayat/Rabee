@@ -33,8 +33,8 @@ class CreateMoodboardView: UIView {
     
     private let createMoodboardIllustration: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "CreateMoodboardIllustration")
-        image.contentMode = .scaleAspectFit
+        image.image = UIImage(named: "CreateMoodBoardIllustrationNoShadow")
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -60,16 +60,17 @@ class CreateMoodboardView: UIView {
         self.addSubview(createMoodboardLabel)
         
         NSLayoutConstraint.activate([
+            
+            createMoodboardIllustration.topAnchor.constraint(equalTo: topAnchor),
+            createMoodboardIllustration.leadingAnchor.constraint(equalTo: createMoodboardBg.leadingAnchor, constant: 10),
+            createMoodboardIllustration.trailingAnchor.constraint(equalTo: createMoodboardBg.trailingAnchor, constant: -10),
+            createMoodboardIllustration.bottomAnchor.constraint(equalTo: createMoodboardBg.bottomAnchor, constant: -48),
+            
             createMoodboardBg.topAnchor.constraint(equalTo: topAnchor, constant: 23),
             createMoodboardBg.bottomAnchor.constraint(equalTo: bottomAnchor),
             createMoodboardBg.leadingAnchor.constraint(equalTo: leadingAnchor),
             createMoodboardBg.trailingAnchor.constraint(equalTo: trailingAnchor),
             createMoodboardBg.heightAnchor.constraint(equalToConstant: 210),
-            
-            createMoodboardIllustration.topAnchor.constraint(equalTo: topAnchor),
-            createMoodboardIllustration.leadingAnchor.constraint(equalTo: createMoodboardBg.leadingAnchor, constant: 20),
-            createMoodboardBg.trailingAnchor.constraint(equalTo: createMoodboardIllustration.trailingAnchor, constant: 20),
-            createMoodboardBg.bottomAnchor.constraint(equalTo: createMoodboardIllustration.bottomAnchor, constant: 43),
             
             createMoodboardLabel.topAnchor.constraint(equalTo: createMoodboardIllustration.bottomAnchor),
             createMoodboardLabel.bottomAnchor.constraint(equalTo: createMoodboardBg.bottomAnchor),
