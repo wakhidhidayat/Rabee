@@ -72,6 +72,13 @@ class MoodboardView: UIView {
         return progressView
     }()
     
+    let exportableView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .whiteColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let backgroundImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "MoodboardBackground")
@@ -157,12 +164,13 @@ class MoodboardView: UIView {
         backgroundColor = .whiteColor
         
         addSubview(progressView)
-        addSubview(backgroundImage)
-        addSubview(themePotraitImageView)
-        addSubview(decorationLandscapeImageView)
-        addSubview(decorationPotraitImageView)
-        addSubview(attireLandscapeImageView)
-        addSubview(attirePotraitImageView)
+        addSubview(exportableView)
+        exportableView.addSubview(backgroundImage)
+        exportableView.addSubview(themePotraitImageView)
+        exportableView.addSubview(decorationLandscapeImageView)
+        exportableView.addSubview(decorationPotraitImageView)
+        exportableView.addSubview(attireLandscapeImageView)
+        exportableView.addSubview(attirePotraitImageView)
         addSubview(nextButton)
         
         NSLayoutConstraint.activate([
@@ -172,10 +180,15 @@ class MoodboardView: UIView {
             nextButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
             nextButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            backgroundImage.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 18),
-            backgroundImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            backgroundImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
-            backgroundImage.bottomAnchor.constraint(equalTo: nextButton.topAnchor, constant: -8),
+            exportableView.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 18),
+            exportableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+            exportableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+            exportableView.bottomAnchor.constraint(equalTo: nextButton.topAnchor, constant: -8),
+            
+            backgroundImage.topAnchor.constraint(equalTo: exportableView.topAnchor),
+            backgroundImage.leadingAnchor.constraint(equalTo: exportableView.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: exportableView.trailingAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: exportableView.bottomAnchor),
             
             themePotraitImageView.widthAnchor.constraint(equalToConstant: 150),
             themePotraitImageView.heightAnchor.constraint(equalToConstant: 248),
