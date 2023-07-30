@@ -10,17 +10,15 @@ import Foundation
 struct ExploreThumbnailModel {
     let imageBanner: String
     let title: String
+    let query: String
     
     static let conceptsData: [ExploreThumbnailModel] = [
-        ExploreThumbnailModel(imageBanner: "ProjectBannerSkeleton", title: "Rustic Wedding"),
-        ExploreThumbnailModel(imageBanner: "ProjectBannerSkeleton", title: "Modern Wedding"),
-        ExploreThumbnailModel(imageBanner: "ProjectBannerSkeleton", title: "Garden Wedding"),
-        ExploreThumbnailModel(imageBanner: "ProjectBannerSkeleton", title: "Traditional Wedding"),
-        ExploreThumbnailModel(imageBanner: "ProjectBannerSkeleton", title: "Minimalist Wedding"),
-        ExploreThumbnailModel(imageBanner: "ProjectBannerSkeleton", title: "Beach Wedding"),
-        ExploreThumbnailModel(imageBanner: "ProjectBannerSkeleton", title: "Formal Wedding"),
-        ExploreThumbnailModel(imageBanner: "ProjectBannerSkeleton", title: "Natural Wedding"),
-        ExploreThumbnailModel(imageBanner: "ProjectBannerSkeleton", title: "Tropical Wedding"),
+        ExploreThumbnailModel(imageBanner: "RusticThemeBanner", title: "Konsep Wedding Rustic", query: "Rustic Wedding"),
+        ExploreThumbnailModel(imageBanner: "ModernThemeBanner", title: "Konsep Wedding Modern", query: "Modern Wedding"),
+        ExploreThumbnailModel(imageBanner: "GardenThemeBanner", title: "Konsep Wedding Garden Party", query: "Garden Party Wedding"),
+        ExploreThumbnailModel(imageBanner: "MinimalistThemeBanner", title: "Konsep Wedding Minimalist", query: "Minimalist Wedding"),
+        ExploreThumbnailModel(imageBanner: "VintageThemeBanner", title: "Konsep Wedding Vintage", query: "Vintage Wedding"),
+        ExploreThumbnailModel(imageBanner: "BeachThemeBanner", title: "Konsep Wedding Beach", query: "Beach Wedding")
         
         
     ]

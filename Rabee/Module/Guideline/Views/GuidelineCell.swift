@@ -29,7 +29,7 @@ class GuidelineCell: UITableViewCell {
                 insideStackView.isHidden = true
                 separator.isHidden = false
                 
-                contentView.backgroundColor = .white
+                contentView.backgroundColor = .whiteColor
             case .finished:
                 print("state")
                 circleIndicator.image = UIImage(named: "ProgressCircleDone")
@@ -39,7 +39,7 @@ class GuidelineCell: UITableViewCell {
                 insideStackView.isHidden = true
                 separator.isHidden = true
                 
-                contentView.backgroundColor = .white
+                contentView.backgroundColor = .whiteColor
             case .current:
                 print("state")
                 circleIndicator.image = UIImage(named: "ProgressCircleCurrent")
@@ -50,7 +50,9 @@ class GuidelineCell: UITableViewCell {
                 separator.isHidden = true
                 
                 //Handling bg
-                contentView.layer.insertSublayer(CAGradientLayer.getLinearPeach(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width - 40, height: 210)), at: 0)
+//                contentView.backgroundColor = .whiteColor
+//                contentView.layer.backgroundColor = UIColor.whiteColor.cgColor
+                contentView.layer.insertSublayer(CAGradientLayer.getLinearPeach(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width - 40, height: 170)), at: 0)
                 contentView.layer.cornerRadius = 20
                 contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
                 contentView.clipsToBounds = true
@@ -117,7 +119,7 @@ class GuidelineCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.distribution = .fill
-        stackView.backgroundColor = .white.withAlphaComponent(0.2)
+        stackView.backgroundColor = .whiteColor.withAlphaComponent(0.2)
         stackView.layer.cornerRadius = 12
         stackView.clipsToBounds = true
         stackView.layer.borderWidth = 2
@@ -199,6 +201,7 @@ class GuidelineCell: UITableViewCell {
     
     // MARK: - UI Set Up
     private func setupUI() {
+        
         contentView.layer.addSublayer(dashedLineLayer)
         contentView.addSubview(circleIndicator)
         

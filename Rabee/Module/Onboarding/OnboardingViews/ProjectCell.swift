@@ -17,7 +17,7 @@ class ProjectCell: UITableViewCell {
     private let projectImage: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
-        iv.image = UIImage(named: "MenAvatar")
+        iv.image = UIImage(named: "ProjectImageDummy")
         iv.layer.cornerRadius = 4
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +29,7 @@ class ProjectCell: UITableViewCell {
         label.textColor = .label
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.textColor = .textBlack
         label.text = "Moodboard Rustic"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -40,6 +41,7 @@ class ProjectCell: UITableViewCell {
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 13, weight: .regular)
         label.text = "23 Juli 2023"
+        label.textColor = .textBlack
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -72,15 +74,17 @@ class ProjectCell: UITableViewCell {
     
     // MARK: - UI Set Up
     private func setupUI() {
-        self.addSubview(projectImage)
-        self.addSubview(projectName)
-        self.addSubview(dateLabel)
-        self.addSubview(arrowImage)
+        contentView.backgroundColor = .whiteColor
+        
+        contentView.addSubview(projectImage)
+        contentView.addSubview(projectName)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(arrowImage)
         
         NSLayoutConstraint.activate([
-            projectImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            projectImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            projectImage.leadingAnchor.constraint(equalTo: leadingAnchor), // Give a liltle bit of padding at the leading
+            projectImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            projectImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            projectImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor), // Give a liltle bit of padding at the leading
             projectImage.widthAnchor.constraint(equalToConstant: 56),
             projectImage.heightAnchor.constraint(equalToConstant: 56),
             
@@ -90,8 +94,8 @@ class ProjectCell: UITableViewCell {
             dateLabel.leadingAnchor.constraint(equalTo: projectImage.trailingAnchor, constant: 12),
             dateLabel.bottomAnchor.constraint(equalTo: projectImage.bottomAnchor, constant: -10.5),
             
-            arrowImage.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            arrowImage.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            arrowImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            arrowImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             
         ])

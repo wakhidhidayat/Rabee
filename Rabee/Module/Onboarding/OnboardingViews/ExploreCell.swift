@@ -77,18 +77,21 @@ class ExploreCell: UITableViewCell {
     
     // MARK: - UI Set Up
     private func setupUI() {
-        self.addSubview(bgShadowRectangle)
-        self.addSubview(bgRectangle)
-        self.addSubview(exploreBanner)
-        self.addSubview(separator)
-        self.addSubview(exploreTitle)
+        
+        contentView.backgroundColor = .whiteColor
+        
+        contentView.addSubview(bgShadowRectangle)
+        contentView.addSubview(bgRectangle)
+        contentView.addSubview(exploreBanner)
+        contentView.addSubview(separator)
+        contentView.addSubview(exploreTitle)
         
         NSLayoutConstraint.activate([
             
-            bgShadowRectangle.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-            bgShadowRectangle.bottomAnchor.constraint(equalTo: bottomAnchor),
-            bgShadowRectangle.leadingAnchor.constraint(equalTo: leadingAnchor),
-            bgShadowRectangle.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bgShadowRectangle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            bgShadowRectangle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            bgShadowRectangle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            bgShadowRectangle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
             bgRectangle.topAnchor.constraint(equalTo: bgShadowRectangle.topAnchor),
             bgRectangle.bottomAnchor.constraint(equalTo: bgShadowRectangle.bottomAnchor, constant: -6),

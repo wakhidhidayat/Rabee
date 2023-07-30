@@ -71,19 +71,24 @@ class OnboardingHeaderView: UIView {
         return view
     }()
     
-    private let createMoodboardButtonSmall: UIButton = {
+    let createMoodboardButtonSmall: UIButton = {
         let button = UIButton()
         
         let imageAttachment = NSTextAttachment()
-        imageAttachment.image = UIImage(systemName: "arrow.right")?.withTintColor(UIColor.whiteColor)
-        let fullString = NSMutableAttributedString(string: "Create your moodboard ")
+        imageAttachment.image =  UIImage(systemName: "arrow.right")?.withTintColor(UIColor.whiteColor)
+        let attributes: [NSAttributedString.Key: Any] = [
+                    .font: UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.medium),
+                    .foregroundColor: UIColor.whiteColor
+                ]
+        let fullString = NSMutableAttributedString(string: "Create your moodboard ", attributes: attributes)
         fullString.append(NSAttributedString(attachment: imageAttachment))
+        
         button.setAttributedTitle(fullString, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.insertSublayer(CAGradientLayer.getLinearPeach(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width - 40, height: 210)), at: 0)
+        button.layer.insertSublayer(CAGradientLayer.getLinearPeach(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width - 40, height: 72)), at: 0)
         button.layer.cornerRadius = 12
         button.clipsToBounds = true
-//        button.addTarget(self, action:#selector(buttonExploreClicked), for: .touchUpInside)
+        button.addTarget(self, action:#selector(createButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -98,7 +103,7 @@ class OnboardingHeaderView: UIView {
     
     private let exploreButton: SegmentedButtonStyle = {
         let button = SegmentedButtonStyle(.primary)
-        button.setTitle("Explore", for: .normal)
+        button.setTitle("Referensi", for: .normal)
         button.frame = CGRect(x: 0, y: 0, width: 71, height: 32)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action:#selector(buttonExploreClicked), for: .touchUpInside)
@@ -107,7 +112,7 @@ class OnboardingHeaderView: UIView {
     
     private let recentButton: SegmentedButtonStyle = {
         let button = SegmentedButtonStyle(.outlined)
-        button.setTitle("Recent Projects", for: .normal)
+        button.setTitle("Proyek Terbaru", for: .normal)
         button.frame = CGRect(x: 0, y: 0, width: 71, height: 32)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action:#selector(buttonRecentClicked), for: .touchUpInside)
@@ -135,12 +140,16 @@ class OnboardingHeaderView: UIView {
         
         headerStackView.addArrangedSubview(titleLabel)
         headerStackView.addArrangedSubview(createMoodboardView)
+        headerStackView.addArrangedSubview(createMoodboardButtonSmall)
         
         self.addSubview(headerStackView)
         
         // Handle click event createMoodBoardView
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(createButtonAction))
         createMoodboardView.addGestureRecognizer(gesture)
+        
+        // Make createButtonSmall hidden for default
+        createMoodboardButtonSmall.isHidden = true
         
         NSLayoutConstraint.activate([
             headerStackView.topAnchor.constraint(equalTo: topAnchor),
@@ -155,8 +164,9 @@ class OnboardingHeaderView: UIView {
             recentButton.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 18),
             recentButton.leadingAnchor.constraint(equalTo: exploreButton.trailingAnchor, constant: 10),
             recentButton.heightAnchor.constraint(equalToConstant: 32),
-            recentButton.bottomAnchor.constraint(equalTo: bottomAnchor)
+            recentButton.bottomAnchor.constraint(equalTo: bottomAnchor),
             
+            createMoodboardButtonSmall.heightAnchor.constraint(equalToConstant: 72)
         ])
     }
 
