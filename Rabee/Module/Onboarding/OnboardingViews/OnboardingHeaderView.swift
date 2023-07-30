@@ -20,6 +20,7 @@ class OnboardingHeaderView: UIView {
     
     // MARK: Variables
     weak var delegate: OnboardingHeaderDelegate?
+    var didCreateBtnTapped: (() -> Void)?
     var selectedButton: SegmentedButton = .explore {
         didSet {
             switch selectedButton {
@@ -122,6 +123,10 @@ class OnboardingHeaderView: UIView {
         selectedButton = .recent
     }
     
+    @objc private func createButtonAction() {
+        didCreateBtnTapped?()
+    }
+    
     
     // MARK: - UI Set Up
     private func setupUI() {
@@ -132,6 +137,10 @@ class OnboardingHeaderView: UIView {
         headerStackView.addArrangedSubview(createMoodboardView)
         
         self.addSubview(headerStackView)
+        
+        // Handle click event createMoodBoardView
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(createButtonAction))
+        createMoodboardView.addGestureRecognizer(gesture)
         
         NSLayoutConstraint.activate([
             headerStackView.topAnchor.constraint(equalTo: topAnchor),

@@ -14,7 +14,7 @@ enum SegmentedButtonType {
     var backgroundColor: UIColor {
         switch self {
         case .primary:
-            return UIColor.peach
+            return UIColor.linearPeachEnd
         case .outlined:
             return .clear
         }
@@ -65,7 +65,7 @@ class SegmentedButtonStyle: UIButton {
         setTitleColor(style.textColor, for: .normal)
         backgroundColor = style.backgroundColor
         layer.borderWidth = 1.2
-        layer.borderColor = UIColor.peach.cgColor
+        layer.borderColor = UIColor.linearPeachEnd.cgColor
     }
     
 

@@ -11,6 +11,7 @@ class GuidelineView: UIView {
     
     // MARK: Variables
     var guidelineData: [GuidelineModel] = GuidelineModel.GuidelineData
+    var didNextBtnTapped: (() -> Void)?
     
     // MARK: - LifeCycle
     override init(frame: CGRect) {
@@ -46,7 +47,19 @@ class GuidelineView: UIView {
         return table
     }()
     
+    private let nextButton: PrimaryButton = {
+        let button = PrimaryButton()
+        button.buttonStyle = .peach
+        button.setTitle("Lanjut ke Pilih Tema Wedding", for: .normal)
+        button.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     // MARK: - Action
+    @objc private func nextAction() {
+        didNextBtnTapped?()
+    }
     
     // MARK: - UI Set Up
     private func setupUI() {
@@ -55,6 +68,7 @@ class GuidelineView: UIView {
         
         self.addSubview(titleLabel)
         self.addSubview(guidelineTableView)
+        self.addSubview(nextButton)
 
         
         NSLayoutConstraint.activate([
@@ -66,6 +80,10 @@ class GuidelineView: UIView {
             guidelineTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             guidelineTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             guidelineTableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+            
+            nextButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 41),
+            nextButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -41),
+            nextButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -45),
             
         ])
     }

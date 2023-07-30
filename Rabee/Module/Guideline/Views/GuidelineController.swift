@@ -10,11 +10,12 @@ import UIKit
 class GuidelineController: UIViewController {
     
     // MARK: - Variables
-    private let viewModel: GuidelineViewModel
+    private let viewModel: GuidelineViewModel = GuidelineViewModel()
+    private let sharePlayViewModel: SharePlayViewModel
     
     // MARK: Life Cycle
-    init(_ viewModel: GuidelineViewModel = GuidelineViewModel()) {
-        self.viewModel = viewModel
+    init(_ sharePlayViewModel: SharePlayViewModel) {
+        self.sharePlayViewModel = sharePlayViewModel
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -27,6 +28,10 @@ class GuidelineController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        
+        guidelineView.didNextBtnTapped = {
+            self.navigationController?.pushViewController(GridViewController(sharePlayViewModel: self.sharePlayViewModel, gridViewModel: SelectThemeViewModel()), animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +74,8 @@ class GuidelineController: UIViewController {
     @objc func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    
     
     
 }

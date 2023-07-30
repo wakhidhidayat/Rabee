@@ -14,12 +14,14 @@ protocol OnboardingDiscussionDelegate: AnyObject {
 
 class OnboardingDiscussionView: UIView {
     weak var delegate: OnboardingDiscussionDelegate?
+    var didBackBtnTapped: (() -> Void)?
     
     private let closeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.tintColor = .whiteColor
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action:#selector(closeButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -166,5 +168,9 @@ class OnboardingDiscussionView: UIView {
     
     @objc private func sharePlayAction() {
         delegate?.didSharePlayBtnTapped()
+    }
+    
+    @objc private func closeButtonAction() {
+        didBackBtnTapped?()
     }
 }

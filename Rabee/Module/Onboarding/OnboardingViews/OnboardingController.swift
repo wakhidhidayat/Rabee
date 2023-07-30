@@ -28,7 +28,9 @@ class OnboardingController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
-        navigationController!.pushViewController(GuidelineController(), animated: true)
+        onboardingView.headerView.didCreateBtnTapped = {
+            self.navigationController?.pushViewController(OnboardingDiscussionViewController(), animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -68,7 +68,7 @@ class OnboardingView: UIView {
         return greetSV
     }()
     
-    private let headerView: OnboardingHeaderView = {
+    let headerView: OnboardingHeaderView = {
         let header = OnboardingHeaderView()
         header.translatesAutoresizingMaskIntoConstraints = false
         return header
