@@ -17,7 +17,8 @@ class OnboardingDiscussionView: UIView {
     
     private let closeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "Close"), for: .normal)
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.tintColor = .whiteColor
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -53,7 +54,7 @@ class OnboardingDiscussionView: UIView {
         let label = UILabel()
         label.textColor = .whiteColor
         label.textAlignment = .center
-        label.text = "Visualisasikan mimpi wedding kamu dengan Rabee"
+        label.text = "Visualisasikan pernikahan impian kamu dengan Rabee"
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +73,7 @@ class OnboardingDiscussionView: UIView {
         let label = UILabel()
         label.textColor = .whiteColor
         label.textAlignment = .center
-        label.text = "Kolaborasi dengan pasanganmu melalui SharePlay sebelum berdiskusi menentukan wedding impian kamu!"
+        label.text = "Kolaborasi dengan pasanganmu melalui SharePlay sebelum berdiskusi menentukan pernikahan impian kamu!"
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -120,7 +121,7 @@ class OnboardingDiscussionView: UIView {
             backgroundImage.trailingAnchor.constraint(equalTo: trailingAnchor),
             backgroundImage.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            closeButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            closeButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 24),
             closeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             closeButton.widthAnchor.constraint(equalToConstant: 23),
             closeButton.heightAnchor.constraint(equalToConstant: 23),

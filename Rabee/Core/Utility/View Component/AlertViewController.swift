@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum AlertType {
+    case notMatch
+}
+
 fileprivate class AlertViewController: UIViewController {
     private let alertView: AlertView = {
         let alertView = AlertView()
@@ -27,6 +31,20 @@ fileprivate class AlertViewController: UIViewController {
         self.buttonTitle = buttonTitle
         self.buttonAction = buttonAction
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    fileprivate init(type: AlertType) {
+        switch type {
+        case .notMatch:
+            self.alertTitle = "Yuk, satukan pilihan kamu!"
+            self.alertDescription = "Kamu dan pasanganmu memilih pilihan yang berbeda nih, diskusiin lagi yuk biar pilihan kalian sama"
+            self.illustrationImage = "AlertNotMatch"
+            self.buttonTitle = "Kembali"
+            self.buttonAction = {
+                UIApplication.topViewController()?.dismiss(animated: true)
+            }
+            super.init(nibName: nil, bundle: nil)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -63,6 +81,12 @@ class AlertHelper {
     
     static func show(title: String, description: String, illustration: String, buttonTitle: String, buttonAction: (() -> Void)?) {
         let alert = AlertViewController(alertTitle: title, alertDescription: description, illustrationImage: illustration, buttonTitle: buttonTitle, buttonAction: buttonAction)
+        alert.modalPresentationStyle = .overFullScreen
+        UIApplication.topViewController()?.present(alert, animated: true)
+    }
+    
+    static func show(alertType: AlertType) {
+        let alert = AlertViewController(type: alertType)
         alert.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(alert, animated: true)
     }

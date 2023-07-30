@@ -76,10 +76,7 @@ class MoodboardViewController: UIViewController {
     }
     
     @objc private func shareAction() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy hh:mma"
-        let nowFormatted = dateFormatter.string(from: .now)
-        if let fileUrl = self.moodboardView.exportableView.saveImage(filename: "rabee-moodboard-\(nowFormatted).jpg") {
+        if let fileUrl = self.moodboardView.exportableView.saveImage(filename: "rabee-moodboard-\(Date()).jpg") {
             let activityController = UIActivityViewController(activityItems: [fileUrl], applicationActivities: nil)
             self.present(activityController, animated: true, completion: nil)
         }

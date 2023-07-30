@@ -8,8 +8,8 @@
 import UIKit
 
 class SelectAttireViewModel: GridViewModel{
-    var navigationTitle = "Wedding Attire"
-    var pageTitle = "Pilihlah set pakaian untuk wedding kamu!"
+    var navigationTitle = "Busana Pernikahan"
+    var pageTitle = "Pilihlah set busana untuk pernikahan kamu!"
     var currentProgress = 3
     var progressText = "3/4"
     var nextButtonTitle = "Lanjut ke Moodboard"
@@ -18,10 +18,14 @@ class SelectAttireViewModel: GridViewModel{
         guard let theme = sharePlayViewModel.getSelectedTheme(),
               let color = sharePlayViewModel.getSelectedColor(),
               let attire = sharePlayViewModel.getSelectedAttire() else {
-            // TODO: Show alert
+            AlertHelper.show(alertType: .notMatch)
             return
         }
         
-        UIApplication.topViewController()?.navigationController?.pushViewController(MoodboardViewController(selectedTheme: theme, selectedColor: color.color, selectedAttire: attire, sharePlayViewModel: sharePlayViewModel), animated: true)
+        AlertHelper.show(title: "Yeaayy", description: "Kamu telah berhasil memilih busana pernikahan yang sama, wohooo!", illustration: "AlertMatch", buttonTitle: "Generate Moodboard") {
+            UIApplication.topViewController()?.dismiss(animated: true) {
+                UIApplication.topViewController()?.navigationController?.pushViewController(MoodboardViewController(selectedTheme: theme, selectedColor: color.color, selectedAttire: attire, sharePlayViewModel: sharePlayViewModel), animated: true)
+            }
+        }
     }
 }

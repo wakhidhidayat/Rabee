@@ -48,8 +48,18 @@ class SelectColorViewController: UIViewController {
         }
         
         selectColorView.didNextBtnTapped = { [weak self] in
-            guard let self, sharePlayViewModel.getSelectedColor() != nil else { return }
-            self.navigationController?.pushViewController(GridViewController(sharePlayViewModel: sharePlayViewModel, gridViewModel: SelectAttireViewModel()), animated: true)
+            guard let self, sharePlayViewModel.getSelectedColor() != nil else {
+                AlertHelper.show(alertType: .notMatch)
+                return
+            }
+            
+            AlertHelper.show(title: "Yeaayy", description: "Kamu telah berhasil memilih warna tema pernikahan yang sama, wohooo!", illustration: "AlertMatch", buttonTitle: "Lanjut ke pilih busana pernikahan") { [weak self] in
+                guard let self else { return }
+                UIApplication.topViewController()?.dismiss(animated: true) { [weak self] in
+                    guard let self else { return }
+                    navigationController?.pushViewController(GridViewController(sharePlayViewModel: sharePlayViewModel, gridViewModel: SelectAttireViewModel()), animated: true)
+                }
+            }
         }
     }
     
@@ -63,7 +73,7 @@ class SelectColorViewController: UIViewController {
     }
     
     private func setupNavbar() {
-        navigationItem.title = "Color Wedding"
+        navigationItem.title = "Warna"
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Back"), style: .plain, target: self, action: #selector(backAction))
         navigationItem.leftBarButtonItem?.tintColor = .peach
