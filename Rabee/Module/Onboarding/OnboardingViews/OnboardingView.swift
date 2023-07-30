@@ -42,7 +42,7 @@ class OnboardingView: UIView {
             NSAttributedString.Key.foregroundColor: UIColor.textBlack,
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .regular)
         ]))
-        text.append(NSAttributedString(string: "Wakhid", attributes: [
+        text.append(NSAttributedString(string: "Nur", attributes: [
             NSAttributedString.Key.foregroundColor: UIColor.peach, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .semibold)
         ]))
         label.attributedText = text
@@ -53,7 +53,7 @@ class OnboardingView: UIView {
     
     let avatarImage: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        image.image = UIImage(named: "MenAvatar")
+        image.image = UIImage(named: "WomanAvatar")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()

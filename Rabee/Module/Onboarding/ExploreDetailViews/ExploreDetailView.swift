@@ -43,7 +43,7 @@ class ExploreDetailView: UIView {
     
     let avatarImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "MenAvatar")
+        image.image = UIImage(named: "ManAvatar")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
