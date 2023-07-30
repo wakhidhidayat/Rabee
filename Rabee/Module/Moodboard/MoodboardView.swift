@@ -9,6 +9,8 @@ import UIKit
 import SDWebImage
 
 class MoodboardView: UIView {
+    var didNextBtnTapped: (() -> Void)?
+    
     var themePotraitUrl: String = "" {
         didSet {
             DispatchQueue.main.async { [weak self] in
@@ -145,7 +147,7 @@ class MoodboardView: UIView {
         let button = PrimaryButton()
         button.buttonStyle = .peach
         button.setTitle("Selesai", for: .normal)
-        //        button.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -215,5 +217,9 @@ class MoodboardView: UIView {
             attirePotraitImageView.topAnchor.constraint(equalTo: themePotraitImageView.bottomAnchor, constant: -40),
             attirePotraitImageView.leadingAnchor.constraint(equalTo: themePotraitImageView.leadingAnchor, constant: 19),
         ])
+    }
+    
+    @objc private func nextAction() {
+        didNextBtnTapped?()
     }
 }

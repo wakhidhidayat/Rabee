@@ -38,6 +38,11 @@ class OnboardingController: UIViewController {
         navigationController?.isNavigationBarHidden = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     // MARK: - UI Components
     private let onboardingView: OnboardingView = {
         let view = OnboardingView()

@@ -201,7 +201,7 @@ class GuidelineCell: UITableViewCell {
     
     // MARK: - UI Set Up
     private func setupUI() {
-        
+        backgroundColor = .whiteColor
         contentView.layer.addSublayer(dashedLineLayer)
         contentView.addSubview(circleIndicator)
         

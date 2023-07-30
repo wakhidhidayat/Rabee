@@ -57,7 +57,7 @@ extension OnboardingDiscussionViewController: OnboardingDiscussionDelegate {
             return
         }
         
-        navigationController?.pushViewController(GridViewController(sharePlayViewModel: sharePlayViewModel, gridViewModel: SelectThemeViewModel()), animated: true)
+        navigationController?.pushViewController(GuidelineController(sharePlayViewModel), animated: true)
     }
     
     func didSharePlayBtnTapped() {

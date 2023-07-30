@@ -57,6 +57,10 @@ class MoodboardViewController: UIViewController {
             return
         }
         generateMoodboard()
+        
+        moodboardView.didNextBtnTapped = { [weak self] in
+            self?.navigationController?.viewControllers = [OnboardingController()]
+        }
     }
     
     private func setupNavbar() {
