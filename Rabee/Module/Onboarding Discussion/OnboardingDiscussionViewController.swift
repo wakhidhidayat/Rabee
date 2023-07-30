@@ -46,6 +46,13 @@ class OnboardingDiscussionViewController: UIViewController {
 
 extension OnboardingDiscussionViewController: OnboardingDiscussionDelegate {
     func didNextBtnTapped() {
+        guard groupStateObserver.isEligibleForGroupSession else {
+            AlertHelper.show(title: "Oopss!", description: "Biar makin harmonis, Kamu harus terhubung dengan pasangan kamu melalui SharePlay yaaa!", illustration: "AlertShareplay", buttonTitle: "Kembali") {
+                UIApplication.topViewController()?.dismiss(animated: true)
+            }
+            return
+        }
+        
         navigationController?.pushViewController(GridViewController(sharePlayViewModel: sharePlayViewModel, gridViewModel: SelectThemeViewModel()), animated: true)
     }
     

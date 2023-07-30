@@ -82,7 +82,7 @@ class SelectColorView: UIView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
         label.textAlignment = .center
-        label.text = "PIlih salah satu dari warna yang tersedia dibawah. Klik untuk memilih dan mengetahui kesan tiap warna untuk mood wedding kamu!"
+        label.text = "PIlih salah satu dari warna yang tersedia dibawah. Klik untuk memilih dan mengetahui kesan tiap warna!"
         label.textColor = .textBlack
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -119,7 +119,7 @@ class SelectColorView: UIView {
     private let nextButton: PrimaryButton = {
         let button = PrimaryButton()
         button.buttonStyle = .peach
-        button.setTitle("Lanjut ke Wedding Attire", for: .normal)
+        button.setTitle("Lanjut ke Busana Pernikahan", for: .normal)
         button.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

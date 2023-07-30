@@ -8,7 +8,7 @@
 import UIKit
 
 class SelectThemeViewModel: GridViewModel{
-    var navigationTitle = "Wedding Theme"
+    var navigationTitle = "Tema Pernikahan"
     var pageTitle = "Diskusikan dan pilih salah satu tema berikut!"
     var currentProgress = 1
     var progressText = "1/4"
@@ -16,10 +16,14 @@ class SelectThemeViewModel: GridViewModel{
     
     func nextButtonAction(sharePlayViewModel: SharePlayViewModel) {
         guard sharePlayViewModel.getSelectedTheme() != nil else {
-            // TODO: Show alert
+            AlertHelper.show(alertType: .notMatch)
             return
         }
         
-        UIApplication.topViewController()?.navigationController?.pushViewController(SelectColorViewController(sharePlayViewModel: sharePlayViewModel), animated: true)
+        AlertHelper.show(title: "Yeaayy", description: "Kamu telah berhasil memilih tema pernikahan yang sama, wohooo!", illustration: "AlertMatch", buttonTitle: "Lanjut ke pilih warna") {
+            UIApplication.topViewController()?.dismiss(animated: true) {
+                UIApplication.topViewController()?.navigationController?.pushViewController(SelectColorViewController(sharePlayViewModel: sharePlayViewModel), animated: true)
+            }
+        }
     }
 }
