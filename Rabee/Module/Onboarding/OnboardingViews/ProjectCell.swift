@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ProjectCell: UITableViewCell {
     
@@ -16,7 +17,7 @@ class ProjectCell: UITableViewCell {
     
     private let projectImage: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleAspectFill
         iv.image = UIImage(named: "ProjectImageDummy")
         iv.layer.cornerRadius = 4
         iv.clipsToBounds = true
@@ -101,6 +102,10 @@ class ProjectCell: UITableViewCell {
         ])
     }
     
+    func configure(with moodboard: Moodboards) {
+        projectImage.sd_setImage(with: URL(string: moodboard.themePotraitUrl ?? ""))
+        projectName.text = moodboard.name
+    }
     
 }
 

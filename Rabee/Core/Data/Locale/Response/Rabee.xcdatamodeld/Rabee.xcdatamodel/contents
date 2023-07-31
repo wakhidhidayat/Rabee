@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Moodboards" representedClassName="Moodboards" syncable="YES" codeGenerationType="class">
+        <attribute name="attireLandscapeUrl" optional="YES" attributeType="String"/>
+        <attribute name="attirePotraitUrl" optional="YES" attributeType="String"/>
+        <attribute name="decorationLandscapeUrl" optional="YES" attributeType="String"/>
+        <attribute name="decorationPotraitUrl" optional="YES" attributeType="String"/>
+        <attribute name="moodboardId" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="themePotraitUrl" optional="YES" attributeType="String"/>
+    </entity>
+</model>
