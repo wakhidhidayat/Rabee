@@ -233,12 +233,13 @@ extension OnboardingView: UITableViewDelegate {
         
         let swipingDown = y <= 0
         let shouldSnap = y > 30
-        let headerHeight = headerView.headerStackView.frame.height + 10 - 95 // 95 is height of createMoodBoardSmall
+        let headerHeight = headerView.headerStackView.frame.height - 90 // 90 is height of createMoodBoardSmall + 18 margin
         
-//        // Give Disappeare animation
-//        UIView.animate(withDuration: 0.3) {
-//            self.headerView.headerStackView.alpha = swipingDown ? 1.0 : 0.0
-//        }
+        // Give Disappeare animation
+        UIView.animate(withDuration: 0.3) {
+            self.headerView.createMoodboardView.alpha = swipingDown ? 1.0 : 0.0
+            self.headerView.titleLabel.alpha = swipingDown ? 1.0 : 0.0
+        }
         
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [], animations: {
             self.headerViewTopConstraint?.constant = shouldSnap ? -headerHeight : 18
