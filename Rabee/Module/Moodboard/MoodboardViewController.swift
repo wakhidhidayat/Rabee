@@ -17,18 +17,24 @@ class MoodboardViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
-    private let selectedTheme: Theme
-    private let selectedColor: ColorFilter
-    private let selectedAttire: Attire
+    private var selectedTheme: Theme? = nil
+    private var selectedColor: ColorFilter? = nil
+    private var selectedAttire: Attire? = nil
     
-    private let shareplayViewModel: SharePlayViewModel
+    private var shareplayViewModel: SharePlayViewModel? = nil
     private let unsplashViewModel = UnsplashViewModel(useCase: UnsplashInjection().getUseCase())
+    private var localeData: Moodboards? = nil
     
     init(selectedTheme: Theme, selectedColor: ColorFilter, selectedAttire: Attire, sharePlayViewModel: SharePlayViewModel) {
         self.selectedTheme = selectedTheme
         self.selectedColor = selectedColor
         self.selectedAttire = selectedAttire
         self.shareplayViewModel = sharePlayViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    init(localeData: Moodboards) {
+        self.localeData = localeData
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,6 +58,17 @@ class MoodboardViewController: UIViewController {
             moodboardView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
+        guard localeData == nil else {
+            moodboardView.attireLandscapeUrl = localeData?.attireLandscapeUrl ?? ""
+            moodboardView.attirePotraitUrl = localeData?.attirePotraitUrl ?? ""
+            moodboardView.decorationPotraitUrl = localeData?.decorationPotraitUrl ?? ""
+            moodboardView.decorationLandscapeUrl = localeData?.decorationLandscapeUrl ?? ""
+            moodboardView.themePotraitUrl = localeData?.themePotraitUrl ?? ""
+            return
+        }
+        
+        guard let shareplayViewModel else { return }
+        
         guard shareplayViewModel.moodboardIsEmpty() else {
             fillData()
             return
@@ -59,7 +76,23 @@ class MoodboardViewController: UIViewController {
         generateMoodboard()
         
         moodboardView.didNextBtnTapped = { [weak self] in
-            self?.navigationController?.viewControllers = [OnboardingController()]
+            let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
+            let newMooadboard = Moodboards(context: managedContext)
+            let userSelected = try? shareplayViewModel.userSelected.value()
+            let name = self?.shareplayViewModel?.getSelectedTheme()?.name
+            
+            newMooadboard.setValue(UUID().uuidString, forKey: #keyPath(Moodboards.moodboardId))
+            newMooadboard.setValue(userSelected?.moodboard.attireLandscapeUrl, forKey: #keyPath(Moodboards.attireLandscapeUrl))
+            newMooadboard.setValue(userSelected?.moodboard.attirePotraitUrl, forKey: #keyPath(Moodboards.attirePotraitUrl))
+            newMooadboard.setValue(userSelected?.moodboard.decorationPotraitUrl, forKey: #keyPath(Moodboards.decorationPotraitUrl))
+            newMooadboard.setValue(userSelected?.moodboard.decorationLandscapeUrl, forKey: #keyPath(Moodboards.decorationLandscapeUrl))
+            newMooadboard.setValue(userSelected?.moodboard.themePotraitUrl, forKey: #keyPath(Moodboards.themePotraitUrl))
+            newMooadboard.setValue(name, forKey: #keyPath(Moodboards.name))
+            AppDelegate.sharedAppDelegate.coreDataStack.saveContext()
+            
+            DispatchQueue.main.async {
+                self?.navigationController?.viewControllers = [OnboardingController()]
+            }
         }
     }
     
@@ -72,7 +105,11 @@ class MoodboardViewController: UIViewController {
         let regenerateButton = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain, target: self, action: #selector(regenerateAction))
         shareButton.tintColor = .peach
         regenerateButton.tintColor = .peach
-        navigationItem.setRightBarButtonItems([shareButton, regenerateButton], animated: true)
+        if localeData == nil {
+            navigationItem.setRightBarButtonItems([shareButton, regenerateButton], animated: true)
+        } else {
+            navigationItem.setRightBarButtonItems([shareButton], animated: true)
+        }
     }
     
     @objc private func backAction() {
@@ -91,7 +128,7 @@ class MoodboardViewController: UIViewController {
     }
     
     private func fillData() {
-        let userSelected = try? shareplayViewModel.userSelected.value()
+        let userSelected = try? shareplayViewModel?.userSelected.value()
         moodboardView.attireLandscapeUrl = userSelected?.moodboard.attireLandscapeUrl ?? ""
         moodboardView.attirePotraitUrl = userSelected?.moodboard.attirePotraitUrl ?? ""
         moodboardView.decorationPotraitUrl = userSelected?.moodboard.decorationPotraitUrl ?? ""
@@ -100,7 +137,7 @@ class MoodboardViewController: UIViewController {
     }
     
     private func setupBinding() {
-        shareplayViewModel.userSelected
+        shareplayViewModel?.userSelected
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] userSelected in
                 self?.fillData()
@@ -112,6 +149,8 @@ class MoodboardViewController: UIViewController {
 // MARK: - Generate Moodboard
 extension MoodboardViewController {
     func generateMoodboard() {
+        guard let selectedTheme, let selectedColor, let selectedAttire else { return }
+        
         unsplashViewModel.search(query: "\(selectedTheme.name) wedding", color: selectedColor, orientation: .portrait) { [weak self] data, error in
             guard error == nil else {
                 return
@@ -119,7 +158,7 @@ extension MoodboardViewController {
             
             let randomImageIndex = Int.random(in: 0..<(data?.results.count ?? 0) - 1)
             guard let imageUrl = data?.results[randomImageIndex].regularImageUrl else { return }
-            self?.shareplayViewModel.setThemeMoodboard(from: imageUrl)
+            self?.shareplayViewModel?.setThemeMoodboard(from: imageUrl)
             self?.moodboardView.themePotraitUrl = imageUrl
         }
         
@@ -130,7 +169,7 @@ extension MoodboardViewController {
             
             let randomImageIndex = Int.random(in: 0..<(data?.results.count ?? 0) - 1)
             guard let imageUrl = data?.results[randomImageIndex].regularImageUrl else { return }
-            self?.shareplayViewModel.setDecorationLandscapeMoodboard(from: imageUrl)
+            self?.shareplayViewModel?.setDecorationLandscapeMoodboard(from: imageUrl)
             self?.moodboardView.decorationLandscapeUrl = imageUrl
         }
         
@@ -141,7 +180,7 @@ extension MoodboardViewController {
             
             let randomImageIndex = Int.random(in: 0..<(data?.results.count ?? 0) - 1)
             guard let imageUrl = data?.results[randomImageIndex].regularImageUrl else { return }
-            self?.shareplayViewModel.setDecorationPotraitMoodboard(from: imageUrl)
+            self?.shareplayViewModel?.setDecorationPotraitMoodboard(from: imageUrl)
             self?.moodboardView.decorationPotraitUrl = imageUrl
         }
 
@@ -152,7 +191,7 @@ extension MoodboardViewController {
             
             let randomImageIndex = Int.random(in: 0..<(data?.results.count ?? 0) - 1)
             guard let imageUrl = data?.results[randomImageIndex].regularImageUrl else { return }
-            self?.shareplayViewModel.setAttireLandscapeMoodboard(from: imageUrl)
+            self?.shareplayViewModel?.setAttireLandscapeMoodboard(from: imageUrl)
             self?.moodboardView.attireLandscapeUrl = imageUrl
         }
         
@@ -163,7 +202,7 @@ extension MoodboardViewController {
             
             let randomImageIndex = Int.random(in: 0..<(data?.results.count ?? 0) - 1)
             guard let imageUrl = data?.results[randomImageIndex].regularImageUrl else { return }
-            self?.shareplayViewModel.setAttirePotraitMoodboard(from: imageUrl)
+            self?.shareplayViewModel?.setAttirePotraitMoodboard(from: imageUrl)
             self?.moodboardView.attirePotraitUrl = imageUrl
         }
 

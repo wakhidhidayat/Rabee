@@ -17,6 +17,11 @@ class OnboardingView: UIView {
     var headerViewTopConstraint: NSLayoutConstraint?
     weak var delegate: OnboardingViewDelegate?
     let conceptsData = ExploreThumbnailModel.conceptsData
+    var moodboards: [Moodboards] = [Moodboards]() {
+        didSet {
+            self.projectTableView.reloadData()
+        }
+    }
     
     // MARK: - LifeCycle
     override init(frame: CGRect) {
@@ -188,6 +193,9 @@ extension OnboardingView: UITableViewDataSource {
             return cell ?? UITableViewCell()
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: ProjectCell.identifier, for: indexPath) as? ProjectCell
+            if moodboards.count > 0 {
+                cell?.configure(with: moodboards[indexPath.row])
+            }
             return cell ?? UITableViewCell()
         }
     }
@@ -197,7 +205,7 @@ extension OnboardingView: UITableViewDataSource {
             return conceptsData.count
         } else {
             // Handle Recent projects numOfRows
-            return 20
+            return moodboards.count
         }
             
     }
@@ -208,6 +216,9 @@ extension OnboardingView: UITableViewDataSource {
             // Handle exploreTableView cell clicked
             exploreTableView.deselectRow(at: indexPath, animated: true)
             delegate?.didSelectRow(type: .explore, query: conceptsData[indexPath.row].query)
+        } else {
+            let moodboardViewContorller = MoodboardViewController(localeData: moodboards[indexPath.row])
+            UIApplication.topViewController()?.navigationController?.pushViewController(moodboardViewContorller, animated: true)
         }
         
     }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class OnboardingController: UIViewController {
     
@@ -31,6 +32,7 @@ class OnboardingController: UIViewController {
         onboardingView.headerView.didCreateBtnTapped = {
             self.navigationController?.pushViewController(OnboardingDiscussionViewController(), animated: true)
         }
+        getMoodboards()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +64,17 @@ class OnboardingController: UIViewController {
             onboardingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             onboardingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func getMoodboards() {
+        let noteFetch: NSFetchRequest<Moodboards> = Moodboards.fetchRequest()
+        do {
+            let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
+            let results = try managedContext.fetch(noteFetch)
+            onboardingView.moodboards = results
+        } catch let error as NSError {
+            print("Fetch error: \(error) description: \(error.userInfo)")
+        }
     }
     
 }
