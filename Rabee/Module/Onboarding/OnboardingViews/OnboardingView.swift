@@ -23,6 +23,18 @@ class OnboardingView: UIView {
         }
     }
     
+    var messageText: NSMutableAttributedString = NSMutableAttributedString(string: "") {
+        didSet {
+            greetMessage.attributedText = messageText
+        }
+    }
+    
+    var avatarImageString: String = "MenAvatar" {
+        didSet {
+            avatarImage.image = UIImage(named: avatarImageString)
+        }
+    }
+    
     // MARK: - LifeCycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,6 +44,7 @@ class OnboardingView: UIView {
         headerView.delegate = self
         
         headerView.selectedButton = .explore
+        
     }
     
     required init?(coder: NSCoder) {
@@ -43,20 +56,13 @@ class OnboardingView: UIView {
     private let greetMessage: UILabel = {
         let label = UILabel()
         let text = NSMutableAttributedString()
-        text.append(NSAttributedString(string: "Hello, ", attributes: [
-            NSAttributedString.Key.foregroundColor: UIColor.textBlack,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .regular)
-        ]))
-        text.append(NSAttributedString(string: "Nur", attributes: [
-            NSAttributedString.Key.foregroundColor: UIColor.peach, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .semibold)
-        ]))
         label.attributedText = text
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let avatarImage: UIImageView = {
+    private let avatarImage: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         image.image = UIImage(named: "WomanAvatar")
         image.translatesAutoresizingMaskIntoConstraints = false

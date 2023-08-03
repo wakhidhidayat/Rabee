@@ -32,7 +32,12 @@ class OnboardingController: UIViewController {
         onboardingView.headerView.didCreateBtnTapped = {
             self.navigationController?.pushViewController(OnboardingDiscussionViewController(), animated: true)
         }
+
         getMoodboards()
+
+        onboardingView.messageText = viewModel.getGreeting()
+        onboardingView.avatarImageString = viewModel.getGenderAvatar()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

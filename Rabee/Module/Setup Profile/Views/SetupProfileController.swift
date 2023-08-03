@@ -24,23 +24,20 @@ class SetupProfileController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
         
         // Check is user already input name and gender
-        if UserDefaultsHelper.shared.getUsername() != nil &&
-            UserDefaultsHelper.shared.getGender() != nil {
+        if viewModel.getUsername() != nil &&
+            viewModel.getGender() != nil {
             self.dismiss(animated: true, completion: nil) // Destroy current Controller
             navigationController?.pushViewController(OnboardingController(), animated: true)
         }
         
         // Save User data to user default
         setupProfileView.didSaveBtnTapped = { name, gender in
-            if UserDefaultsHelper.shared.getUsername() == nil &&
-                UserDefaultsHelper.shared.getGender() == nil
-            {
-                UserDefaultsHelper.shared.saveUsername(name)
-                UserDefaultsHelper.shared.saveGender(gender)
+            if self.viewModel.getUsername() == nil {
+                self.viewModel.saveUsername(name: name)
+                self.viewModel.saveGender(gender: gender)
                 self.navigationController?.pushViewController(OnboardingController(), animated: true)
             } else {
                 print("Alredy have profile data")

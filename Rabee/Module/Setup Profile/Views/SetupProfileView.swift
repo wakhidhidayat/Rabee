@@ -15,7 +15,7 @@ enum Gender: String {
 class SetupProfileView: UIView {
     
     // MARK: Variables
-    var didSaveBtnTapped: ((_ name: String, _ gender: String) -> Void)?
+    var didSaveBtnTapped: ((_ name: String, _ gender: Gender) -> Void)?
     var selectedGender: Gender = .man {
         didSet {
             switch selectedGender {
@@ -143,7 +143,7 @@ class SetupProfileView: UIView {
     
     @objc private func saveAction() {
         if nameTextField.text != "" {
-            didSaveBtnTapped?(nameTextField.text ?? "", selectedGender.rawValue)
+            didSaveBtnTapped?(nameTextField.text ?? "", selectedGender)
         } else {
             print("Text field can't be empty")
         }
