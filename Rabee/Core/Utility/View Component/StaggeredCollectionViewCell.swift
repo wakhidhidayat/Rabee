@@ -54,6 +54,8 @@ class StaggeredCollectionViewCell: UICollectionViewCell {
     
     func configure(with imageUrl: URL) {
         themeImageView.sd_setImage(with: imageUrl)
+        themeImageView.sd_imageTransition = .fade
+        themeImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
     }
 }
 

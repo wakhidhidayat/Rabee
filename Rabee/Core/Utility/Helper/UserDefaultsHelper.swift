@@ -14,7 +14,24 @@ class UserDefaultsHelper {
         UserDefaults.standard.set(id, forKey: "id")
     }
     
+    func saveUsername(_ name: String) {
+        UserDefaults.standard.set(name, forKey: "username")
+    }
+    
+    func saveGender(_ gender: String) {
+        UserDefaults.standard.set(gender, forKey: "gender")
+    }
+    
     func getId() -> String? {
         return UserDefaults.standard.string(forKey: "id")
     }
+    
+    func getUsername() -> String? {
+        return UserDefaults.standard.string(forKey: "username")
+    }
+    
+    func getGender() -> String? {
+        return UserDefaults.standard.string(forKey: "gender")
+    }
+
 }
